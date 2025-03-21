@@ -6,12 +6,15 @@
   ansible.builtin.template:
     src: index.html.j2 
     dest: /var/www/html/index.html
+  notify: Reload nginx
 - name: create nginx configuration
   ansible.builtin.copy:
     src: default.conf
     dest: /etc/nginx/sites-available/default
+  notify: Reload nginx
 - name: enable nginx configuration
   ansible.builtin.file:
     src: /etc/nginx/sites-available/default
     dest: /etc/nginx/sites-enabled/default
     state: link
+  notify: Reload nginx
